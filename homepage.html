@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trash Reuse Recommendations</title>
+  <!-- Include Google Cloud Vision API JavaScript Client Library -->
+  <script src="https://apis.google.com/js/api.js"></script>
+</head>
+<body>
+  <h1>Trash Reuse Recommendations</h1>
+  <input type="file" accept="image/*" onchange="handleImageUpload(event)">
+  <div id="imagePreview"></div>
+  <div id="recommendations"></div>
+
+  <script>
+    let visionApi;
+    
+
+    async function handleImageUpload(event) {
+    const fileInput = document.querySelector('input[type="file"]');
+    fileInput.addEventListener('change', async function(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+        const base64Image = e.target.result.split(',')[1];
+        displayImagePreview(base64Image);
+        await detectLabels(base64Image);
+        };
+        reader.readAsDataURL(file);
+    });
+    }
+
+    async function detectLabels(base64Image) {
+    if (!visionApi) {
+        console.error('Vision API is not initialized.');
+        return;
+    }
+
+    const response = await visionApi.images.annotate({
+        'requests': [{
+        'image': {
+            'content': base64Image
+        },
+        'features': [{
+            'type': 'LABEL_DETECTION'
+        }]
+        }]
+    });
+    const labels = response.result.responses[0].labelAnnotations.map(label => label.description);
+    displayRecommendations(labels);
+    }
+
+    function displayImagePreview(base64Image) {
+      const imagePreview = document.getElementById('imagePreview');
+      imagePreview.innerHTML = `<img src="data:image/jpeg;base64,${base64Image}" alt="Uploaded Image" style="max-width: 100%;">`;
+    }
+
+    function displayRecommendations(labels) {
+      const recommendationsContainer = document.getElementById('recommendations');
+      recommendationsContainer.innerHTML = '<h3>Recommendations:</h3>';
+      labels.forEach(label => {
+        const recommendationItem = document.createElement('p');
+        recommendationItem.textContent = getRecommendation(label);
+        recommendationsContainer.appendChild(recommendationItem);
+      });
+    }
+
+    function getRecommendation(label) {
+      // Example logic: Generate recommendations based on detected labels
+      const recommendationsMap = {
+        'Plastic Bottle': 'Recycle or use for plant watering.',
+        'Cardboard Box': 'Reuse for storage or arts and crafts projects.',
+        'Glass Jar': 'Reuse for food storage or DIY decorations.'
+        // Add more recommendations as needed
+      };
+      return recommendationsMap[label] || 'No specific recommendation.';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        gapi.client.init({
+            'apiKey': 'AIzaSyB58dBmAld49AMUc2m-6_jX_AkvI9NFOSg',
+            'discoveryDocs': ['https://vision.googleapis.com/$discovery/rest']
+        }).then(() => {
+            visionApi = gapi.client.vision;
+        }).catch(error => {
+            console.error('Error initializing Vision API:', error);
+        });
+    });
+  </script>
+</body>
+</html>
