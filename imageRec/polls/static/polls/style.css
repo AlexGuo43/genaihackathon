@@ -1,8 +1,13 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f2; /* Light background for contrast */
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  background-color: #F5F5F5;
+  color: #333333;
+}
+
+.h1 {
+  color: #3e4c34; /* Olive green for titles */
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .container {
@@ -12,41 +17,16 @@ body, html {
   color: #333;
 }
 
-.title {
-  color: #3e4c34; /* Olive green for titles */
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.upload-section {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-#fileUpload {
-  display: none; /* Hide the default input */
-}
-
-.upload-label {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #8a6d3b; /* Earth brown */
-  color: white;
+button[type="submit"] {
   border-radius: 5px;
+  background-color: #4B5320; /* Olive Green */
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 20px;
   cursor: pointer;
 }
 
-.upload-label:hover {
-  background-color: #7c6234;
+button[type="submit"]:hover {
+  background-color: #6B8E23; /* Olive Drab */
 }
 
-.image-preview, .recommendations {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.recommendations {
-  background-color: #dcd0c0; /* Soft earth tone for recommendations background */
-  padding: 10px;
-  border-radius: 5px;
-}
