@@ -150,7 +150,7 @@ if(repurposable=="no"):
    print("Unfortunately this is not repurposable, please recycle or dispose responsibly.")
 
 if(repurposable=="yes"):
-    prompt = ("instead of throwing"+object+"out, is there a way to repurpose this using DIY. print max 5 of them in a numbered ordered list with no title and lead each idea with the idea in bold, make sure not to repeat the same idea")
+    prompt = ("instead of throwing"+object+"out, is there a way to repurpose this using DIY. print ONLY max 5 of them in a numbered ordered list with no title and lead each idea with the idea in bold, make sure not to repeat the same idea")
     print(get_chat_response(chat, prompt))
 
 
