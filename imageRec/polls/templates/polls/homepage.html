@@ -19,8 +19,8 @@
       </div>
     </form>
 
-    <!-- Container to display dynamic content -->
-    <div id="dynamicContentContainer"></div>
+    <!-- Container to display generative AI responses -->
+    <div id="generativeResponseContainer"></div>
   </div>
 
   <!-- Add your JavaScript code here -->
@@ -31,7 +31,7 @@
       // Create a FormData object to send the form data
       let formData = new FormData(this);
 
-      // Make an AJAX request to the backend URL to handle form submission and get dynamic content
+      // Make an AJAX request to the backend URL to handle form submission and get generative AI responses
       fetch('/polls/homepage/', {
         method: 'POST',
         body: formData,
@@ -41,8 +41,8 @@
       })
       .then(response => response.text())
       .then(data => {
-        // Update the dynamicContentContainer with the received data
-        document.getElementById('dynamicContentContainer').innerHTML = data;
+        // Update the generativeResponseContainer with the received generative AI responses
+        document.getElementById('generativeResponseContainer').innerHTML = data;
       })
       .catch(error => console.error('Error:', error));
     });

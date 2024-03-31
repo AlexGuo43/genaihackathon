@@ -15,7 +15,7 @@ from vertexai.generative_models import GenerativeModel, ChatSession
 
 
 # Initialize Vertex AI
-vertexai.init(project="your-gcp-project-id", location="us-central1")
+vertexai.init(project="glossy-premise-418818", location="us-central1")
 
 # Function to get chat response
 
@@ -55,7 +55,8 @@ def homepage(request):
 
             # Initialize the GenerativeModel with your model
             multimodal_model = GenerativeModel("gemini-1.0-pro-vision")
-            uploaded_image_url = f"https://storage.googleapis.com/{bucket_name}/{destination_blob_name}"
+            uploaded_image_url = f"gs://{
+                bucket_name}/{destination_blob_name}"
 
             # Prepare the content for the model
             image = Part.from_uri(uploaded_image_url, mime_type="image/jpeg")
