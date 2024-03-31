@@ -8,16 +8,17 @@
   <title>Trash Reuse Recommendations</title>
 </head>
 <body>
-  <div class="container">
-    <h1 class="title">Trash Reuse Recommendations</h1>
-    <form method="post" enctype="multipart/form-data" class="form-container">
-      {% csrf_token %}
-      <div>{{ UserForm }}</div>
-      <br>
-      <div>
-          <button type="submit" class="submit-button">Submit</button>
-      </div>
-    </form>
-  </div>
+  <h1>Trash Reuse Recommendations</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container">{{ UserForm }}</div>
+    <br>
+    <div class="container">
+        <button type="submit"
+            style="border-radius: 0.2vw; background-color: #D5D5D5; color: black; border: none;"
+            >Submit</button>
+    </div>
+  
+
 </body>
 </html>
