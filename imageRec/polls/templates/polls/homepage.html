@@ -1,15 +1,23 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css"> <!-- Linking the CSS file -->
   <title>Trash Reuse Recommendations</title>
 </head>
 <body>
-  <h1>Trash Reuse Recommendations</h1>
-  <input type="file" accept="image/*" onchange="handleImageUpload(event)">
-  <div id="imagePreview"></div>
-  <div id="recommendations"></div>
-
+  <div class="container">
+    <h1 class="title">Trash Reuse Recommendations</h1>
+    <form method="post" enctype="multipart/form-data" class="form-container">
+      {% csrf_token %}
+      <div>{{ UserForm }}</div>
+      <br>
+      <div>
+          <button type="submit" class="submit-button">Submit</button>
+      </div>
+    </form>
+  </div>
 </body>
 </html>
