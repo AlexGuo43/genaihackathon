@@ -16,8 +16,9 @@ def homepage(request):
             image_file = request.FILES.get('userImage')
             if(image_file):
                 print(f"Uploaded image file: {image_file.name}")
+            project_id = 'glossy-premise-418818'
             # Initialize Google Cloud Storage client
-            storage_client = storage.Client()
+            storage_client = storage.Client(project='glossy-premise-418818')
 
             # Specify your Google Cloud Storage bucket name
             bucket_name = 'bucket1forgenai'  # Replace 'your-bucket-name' with your actual GCS bucket name
