@@ -7,9 +7,16 @@
 </head>
 <body>
   <h1>Trash Reuse Recommendations</h1>
-  <input type="file" accept="image/*" onchange="handleImageUpload(event)">
-  <div id="imagePreview"></div>
-  <div id="recommendations"></div>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container">{{ UserForm }}</div>
+    <br>
+    <div class="container">
+        <button type="submit"
+            style="border-radius: 0.2vw; background-color: #D5D5D5; color: black; border: none;"
+            >Submit</button>
+    </div>
+  
 
 </body>
 </html>
