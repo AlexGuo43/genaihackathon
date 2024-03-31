@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.conf import settings
 from google.cloud import storage
 from .forms import UserForm
+import vertexai
 import http.client
 import typing
 import urllib.request
@@ -10,6 +11,8 @@ import IPython.display
 from PIL import Image as PIL_Image
 from PIL import ImageOps as PIL_ImageOps
 from vertexai.generative_models import GenerativeModel, HarmCategory, HarmBlockThreshold, Image, Part, GenerationConfig
+from vertexai.generative_models import GenerativeModel, ChatSession
+
 
 def homepage(request):
     context = {
@@ -50,6 +53,8 @@ def homepage(request):
 
             # Save the form data to your Django model or perform other actions
             form.save()
+
+            vertexai.init(project="glossy-premise-418818", location="us-central1")
 
             # Get the public URL of the uploaded image
             uploaded_image_url = f"https://storage.googleapis.com/{bucket_name}/{destination_blob_name}"
@@ -95,6 +100,8 @@ def homepage(request):
             # If repurposable, get DIY repurpose suggestions
             if repurposable == "yes":
                 diy_repurpose_prompt = f"Instead of throwing {object_detected} out, is there a way to repurpose this using DIY. Print 5 of them in a numbered list with no title, make sure not to repeat the same idea"
+                model = GenerativeModel("gemini-1.0-pro")
+                chat = model.start_chat()
                 repurpose_suggestions = get_chat_response(chat, diy_repurpose_prompt)
                 context['repurpose_suggestions'] = repurpose_suggestions
         else:
