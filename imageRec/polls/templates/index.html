@@ -1,0 +1,24 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'polls/style.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Trash Reuse Recommendations</title>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Trash Reuse Recommendations</h1>
+    <div class="upload-section">
+      <input type="file" accept="image/*" onchange="handleImageUpload(event)" id="fileUpload">
+      <label for="fileUpload" class="upload-label">Choose a file</label>
+    </div>
+    <div id="imagePreview" class="image-preview"></div>
+    <div id="recommendations" class="recommendations"></div>
+  </div>
+</body>
+</html>

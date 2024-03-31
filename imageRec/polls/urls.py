@@ -6,6 +6,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('homepage/', views.homepage),
+    path('', views.homepage)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
