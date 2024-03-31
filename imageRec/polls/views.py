@@ -5,10 +5,6 @@ from .forms import UserForm
 
 
 def homepage(request):
-<<<<<<< HEAD
-    return render(request, 'polls/homepage.html')
-
-=======
     context = {
         "UserForm": UserForm(),
     }
@@ -42,4 +38,3 @@ def homepage(request):
         else:
             return render(request, 'polls/homepage.html', context)
     return render(request, 'polls/homepage.html', context)
->>>>>>> ab56288b14cbfaacf44145a79de4fdf3fb2d860d
