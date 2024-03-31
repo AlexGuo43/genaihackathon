@@ -73,7 +73,7 @@ def print_multimodal_prompt(contents: list):
 
 
 # Load image from Cloud Storage URI
-gcs_uri = "gs://bucket1forgenai/card board.jpg"
+gcs_uri = "gs://bucket1forgenai/old t shirt.jpg"
 
 # Prepare contents
 image = Part.from_uri(gcs_uri, mime_type="image/jpeg")
@@ -120,13 +120,15 @@ responses = multimodal_model.generate_content(
 
 #print("\n-------Response--------")
 for response in responses:
-    #print("response:", response)
-    stop = FINISH_REASON_SAFETY
-
-    object = response.text #object detected by Gemini stored 
-
-    print("Looks like a"+object)
-    print("Instead of sending it to the landfill, here are some suggestions!\n")
+    reason = response.candidates[0].finish_reason
+    #print(reason)
+    if(reason==1):
+        object = response.text #object detected by Gemini stored 
+        print("Looks like a"+object)
+        print("Instead of sending it to the landfill, here are some suggestions!\n")
+    elif(reason !=1):
+        print("Invalid or inappropriate photo")
+        quit()
 
 #Now to create the possible ways to repurpose the object.
 from vertexai.generative_models import GenerativeModel, ChatSession
@@ -142,14 +144,13 @@ def get_chat_response(chat: ChatSession, prompt: str) -> str:
     return "".join(text_response)
 
 #Check if it is repurposeable 
-prompt = ("is"+object+"repurposeable? Output should be only yes or no, be realistic about the object and think about the state it is in, for example damages");
+prompt = ("is"+object+"repurposeable? Output should be only yes or no, be realistic about the object and think about the state it is in, for example damages, condition, uses");
 repurposable = (get_chat_response(chat, prompt))
-print(repurposable)
 if(repurposable=="no"):
-   print("Unfortunately this is not repurposable, please recycle or dispose responsibly")
+   print("Unfortunately this is not repurposable, please recycle or dispose responsibly.")
 
 if(repurposable=="yes"):
-    prompt = ("instead of throwing"+object+"out, is there a way to repurpose this using DIY. print 5 of them in a numbered list with no title, make sure not to repeat the same idea")
+    prompt = ("instead of throwing"+object+"out, is there a way to repurpose this using DIY. print max 5 of them in a numbered ordered list with no title and lead each idea with the idea in bold, make sure not to repeat the same idea")
     print(get_chat_response(chat, prompt))
 
 
