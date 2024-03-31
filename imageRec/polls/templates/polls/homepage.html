@@ -1,14 +1,16 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/style.css' %}"> <!-- Linking the CSS file -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css"> <!-- Linking the CSS file -->
   <title>Trash Reuse Recommendations</title>
 </head>
 <body>
-  <h1>Trash Reuse Recommendations</h1>
+  <div class="container">
+  <h1 class="h1">Trash Reuse Recommendations</h1>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="container">{{ UserForm }}</div>
