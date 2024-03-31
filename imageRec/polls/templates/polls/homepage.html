@@ -1,3 +1,7 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'polls/style.css' %}"> <!-- Linking the CSS file -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,34 +9,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trash Reuse Recommendations</title>
 </head>
-<body>
-  <h1>Trash Reuse Recommendations</h1>
+<body class="body">
+  <div class="container">
+  <h1 class="h1">Upcycling Hacks</h1>
+  <p>Many used items are thrown out without a second thought. Upload an image of something you plan to throw out and discover creative ways to repurpose it!</p> <!-- Added a paragraph for the description -->
   <!-- Form to upload image -->
   <form action="/polls/homepage/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <input type="file" name="userImage" accept="image/*">
     <button type="submit">Upload Image</button>
   </form>
-  
+</div>
+
   <!-- Section to display Generative AI's response -->
   {% if object_detected %}
-    <div id="generativeAIResponse">
-      <h2>Object Detected:</h2>
-      <p>{{ object_detected }}</p>
+    <div class="container" id="generativeAIResponse">
+      <h2 class="body">Object Detected:</h2>
+      <p class="body">{{ object_detected }}</p>
     </div>
   {% endif %}
   {% if repurposable %}
-    <div>
-      <h2>Is Repurposeable?</h2>
-      <p>{{ repurposable }}</p>
+    <div class="container">
+      <h2 class="body">Is Repurposeable?</h2>
+      <p class="body">{{ repurposable }}</p>
     </div>
   {% endif %}
 
   {% if repurpose_suggestions %}
-    <div>
-      <h2>Repurposing Suggestions:</h2>
-      <p>{{ repurpose_suggestions|linebreaks }}</p>
+    <div class="container">
+      <h2 class="body">Repurposing Suggestions:</h2>
+      <p class="body">{{ repurpose_suggestions|linebreaks }}</p>
     </div>
   {% endif %}
+  <!-- Add the Earth GIF -->
+  <img src="{% static 'images/earth.gif' %}" alt="Cute Earth" class="earth-gif">
 </body>
 </html>

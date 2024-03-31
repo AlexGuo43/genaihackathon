@@ -1,4 +1,22 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+
+.input[type="file"] {   /*not in html*/
+  border: none;
+  color: #333333;
+  padding: 10px;
+  background-color: transparent; /* Make the background color the same as the page */
+}
+
+/* This assumes that your file input is wrapped in a div with a class 'file-input-container' */
+.file-input-container {
+  border: none; /* Removes the border */
+  padding: 0;
+  background-color: transparent; /* Adjust background-color as needed */
+}
+
+.body {
   font-family: 'Josefin Sans', sans-serif;
   background-color: #F5F5F5;
   color: #333333;
@@ -14,19 +32,42 @@ body {
   max-width: 800px;
   margin: auto;
   padding: 20px;
-  color: #333;
+  background-color: #fff; /* Added a white background */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Added a subtle shadow to make it pop a bit */
+  border-radius: 10px; /* Rounded corners for the box */
 }
 
-button[type="submit"] {
+.file-input-label {
+  display: block; /* Makes the label block so it sits above the input */
+  margin-bottom: 10px; /* Adds some space between the label and the input */
+}
+
+.file-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px; /* Adds some space between the input and the button */
+  border: 1px solid #ddd; /* Adds a light border */
+  border-radius: 5px; /* Rounds the corners of the input field */
+}
+
+.button[type="submit"] {
   border-radius: 5px;
-  background-color: #4B5320; /* Olive Green */
+  background-color: #6B8E23; /* Olive Green */
   color: #FFFFFF;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
+  display: block; /* Makes the button a block element */
+  width: 100%; /* Makes the button extend full container width */
+  margin-top: 10px; /* Adds space at the top of the button */
 }
 
-button[type="submit"]:hover {
-  background-color: #6B8E23; /* Olive Drab */
+.button[type="submit"]:hover {
+  background-color: #4B5320; /* Olive Drab */
 }
 
+.earth-gif {
+  display: block;
+  margin: 20px auto; /* Adjust margin as needed */
+  max-width: 20%; /* Ensure the image doesn't exceed its container's width */
+}
