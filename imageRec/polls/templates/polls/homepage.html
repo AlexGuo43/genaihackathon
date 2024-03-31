@@ -4,48 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trash Reuse Recommendations</title>
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'polls/style.css' %}"> <!-- Linking the CSS file -->
 </head>
 <body>
-  <div class="container">
-    <h1 class="h1">Trash Reuse Recommendations</h1>
-    <form method="post" enctype="multipart/form-data" id="uploadForm">
-      {% csrf_token %}
-      <div class="container">{{ UserForm }}</div>
-      <br>
-      <div class="container">
-        <button type="submit" style="border-radius: 0.2vw; background-color: #D5D5D5; color: black; border: none;">Submit</button>
-      </div>
-    </form>
+  <h1>Trash Reuse Recommendations</h1>
+  <!-- Form to upload image -->
+  <form action="/polls/homepage/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="userImage" accept="image/*">
+    <button type="submit">Upload Image</button>
+  </form>
+  
+  <!-- Section to display Generative AI's response -->
+  {% if object_detected %}
+    <div id="generativeAIResponse">
+      <h2>Object Detected:</h2>
+      <p>{{ object_detected }}</p>
+    </div>
+  {% endif %}
+  {% if repurposable %}
+    <div>
+      <h2>Is Repurposeable?</h2>
+      <p>{{ repurposable }}</p>
+    </div>
+  {% endif %}
 
-    <!-- Container to display generative AI responses -->
-    <div id="generativeResponseContainer"></div>
-  </div>
-
-  <!-- Add your JavaScript code here -->
-  <script>
-    document.getElementById('uploadForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent the form from submitting normally
-
-      // Create a FormData object to send the form data
-      let formData = new FormData(this);
-
-      // Make an AJAX request to the backend URL to handle form submission and get generative AI responses
-      fetch('/polls/homepage/', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'X-CSRFToken': '{{ csrf_token }}' // Include CSRF token in headers
-        }
-      })
-      .then(response => response.text())
-      .then(data => {
-        // Update the generativeResponseContainer with the received generative AI responses
-        document.getElementById('generativeResponseContainer').innerHTML = data;
-      })
-      .catch(error => console.error('Error:', error));
-    });
-  </script>
+  {% if repurpose_suggestions %}
+    <div>
+      <h2>Repurposing Suggestions:</h2>
+      <p>{{ repurpose_suggestions|linebreaks }}</p>
+    </div>
+  {% endif %}
 </body>
 </html>

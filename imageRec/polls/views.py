@@ -80,5 +80,21 @@ def homepage(request):
             context['object_detected'] = object_detected
 
             # Further processing to check if the object is repurposable and get suggestions goes here...
+            if object_detected:
+                # Assuming you have a function to initialize your chat model
+                model = GenerativeModel("gemini-1.0-pro")
+                chat = model.start_chat()
+                
+                # Generate the prompt to check if the object is repurposeable
+                prompt_repurposeable = f"is {object_detected} repurposeable? Output should be only yes or no, be realistic about the object and think about the state it is in, for example damages, condition, uses"
+                repurposable = get_chat_response(chat, prompt_repurposeable)
+                
+                context['repurposable'] = repurposable
+                
+                # If the object is repurposeable, ask for suggestions
+                if repurposable.strip().lower() == "yes":
+                    prompt_suggestions = f"instead of throwing {object_detected} out, is there a way to repurpose this using DIY. Print ONLY max 5 of them in a numbered ordered list with no title and lead each idea with the idea in bold, make sure not to repeat the same idea"
+                    suggestions = get_chat_response(chat, prompt_suggestions)
+                    context['repurpose_suggestions'] = suggestions
 
     return render(request, 'polls/homepage.html', context)
